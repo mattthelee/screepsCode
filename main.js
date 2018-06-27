@@ -1,6 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
+var Jobs = require('jobs');
+
 var harvesterNumber = 1;
 var upgraderNumber = 1;
 var builderNumber = 1;

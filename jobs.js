@@ -15,38 +15,11 @@
 // 11) creeps should bid for work based on their proximity
 // 12) creeps should bid for work also based on their tools
 
-var job = {
-//TODO work out javascript class definitions
-  'assigned' : false,
-  'description' : METHOD TO PUT IN VAR HERE
-
-}
-
-var jobGenerator = {
-
-  run: function(room) {
-    sources = room.find(FIND_SOURCES);
-    for (source in sources) {
-      jobGenerator.push("extract from source:" + source);
-    }
-
-    constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
-    for (constructionSite in constructionSites) {
-      jobGenerator.push("build :" + constructionSite);
-    }
-
-    jobGenerator.push("upgrade :" + room.controller);
-
-
+class Job = {
+  constructor(description, assigned = false) {
+    this.description = description;
+    this.assigned = assigned;
   }
 }
 
-var jobAssigner = {
-
-  run: function(jobArray) {
-    //TODO put a filter on the jobarray to get unassigned jobs only
-    var unassignedJobs = jobArray.filter( job => job.assigned = false);
-
-  }
-
-}
+module.exports = Job;
