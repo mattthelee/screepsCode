@@ -1,4 +1,4 @@
-var Job = require('jobs');
+var Job = require('job');
 
 
 var jobAssigner = {
@@ -13,9 +13,9 @@ var jobAssigner = {
       unemployedCreeps = creeps.filter(creep => creep.memory.job == false);
       assignJob(unemployedCreeps[0],job);
     }
-  }
+  },
 
-  function assignJob(creep,job) {
+  assignJob: function (creep,job) {
     creep.memory.job = job.description;
     job.assigned = creep.name;
     console.log('Creep: ' + creep.name + ' should have job: ' + job.description);

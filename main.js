@@ -1,6 +1,11 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
-var Jobs = require('jobs');
+var roleBuilder = require('role.builder');
+
+var Job = require('job');
+var jobGenerator = require('job.generator');
+var jobAssigner = require('job.assigner');
+
 
 var harvesterNumber = 1;
 var upgraderNumber = 1;
@@ -11,22 +16,7 @@ var builderDef = [WORK,WORK,CARRY,MOVE]
 
 
 module.exports.loop = function () {
-
-    var tower = Game.getObjectById('5c8e063deabdf9b934638ad9');
-    if(tower) {
-        var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => structure.hits < structure.hitsMax
-        });
-        if(closestDamagedStructure) {
-            tower.repair(closestDamagedStructure);
-        }
-
-        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(closestHostile) {
-            tower.attack(closestHostile);
-        }
-    }
-
+    jobGenerator.run(Game.rooms['W8N7']);
      var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
 

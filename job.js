@@ -15,7 +15,7 @@
 // 11) creeps should bid for work based on their proximity
 // 12) creeps should bid for work also based on their tools
 
-class Job = {
+class Job {
   constructor(description, assigned = false) {
     this.description = description;
     this.assigned = assigned;
