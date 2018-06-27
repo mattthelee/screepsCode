@@ -6,7 +6,8 @@ var jobGenerator = {
     jobArray = []
     sources = room.find(FIND_SOURCES);
     for (source in sources) {
-      jobArray.push(new Job("extract from source:" )); //+ source
+      var sourceJob = new Job("extract from source:" + source )
+      jobArray.push(sourceJob);
     }
 
     constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
@@ -17,8 +18,8 @@ var jobGenerator = {
     jobArray.push(new Job("upgrade :" + room.controller));
 
     console.log('jobs: ');
-    for (job in jobArray) {
-      console.log(job.description);
+    for (job of jobArray) {
+      console.log( job.description);
     }
   }
 }
