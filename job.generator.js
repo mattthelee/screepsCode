@@ -17,10 +17,8 @@ var jobGenerator = {
 
     jobArray.push(new Job("upgrade :" + room.controller));
 
-    console.log('jobs: ');
-    for (job of jobArray) {
-      console.log( job.description);
-    }
+    return jobArray
+    
   }
 }
 

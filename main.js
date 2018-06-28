@@ -7,16 +7,19 @@ var jobGenerator = require('job.generator');
 var jobAssigner = require('job.assigner');
 
 
-var harvesterNumber = 1;
-var upgraderNumber = 1;
-var builderNumber = 1;
+var harvesterNumber = 2;
+var upgraderNumber = 2;
+var builderNumber = 2;
 var harvesterDef = [WORK,WORK,CARRY,MOVE]
 var upgraderDef = [WORK,WORK,CARRY,MOVE]
 var builderDef = [WORK,WORK,CARRY,MOVE]
 
 
 module.exports.loop = function () {
-    jobGenerator.run(Game.rooms['W8N7']);
+    myRoom =  Game.rooms['W8N7']
+    jobArray = jobGenerator.run(myRoom);
+    jobAssigner.run(myRoom,jobArray)
+
      var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
 
