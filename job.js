@@ -4,6 +4,7 @@
 //    c) if no job available creeps should return to holding area near but not directly next to the source
 // 2) creeps should accept jobs from the list starting with highest priority
 //    a) creeps holding pattern should prevent them getting stuck, therefore at least one gap between others.
+//    b) creeps should hold the function to perform their job in their memory?
 // 3) only creeps capable of doing the job should accept it
 // 4) Resource extraction should be number 1 priority until storage is full
 // 5) When storage full we want priority to switch to spending resources.
