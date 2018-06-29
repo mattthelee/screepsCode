@@ -2,6 +2,7 @@
 //    a) There should always be a job to extract resources if there is an open Resource
 //    b) transfer job should be created when a structure is not full
 //    c) if no job available creeps should return to holding area near but not directly next to the source
+//    d) if a creep dies its job should be unassigned
 // 2) creeps should accept jobs from the list starting with highest priority
 //    a) creeps holding pattern should prevent them getting stuck, therefore at least one gap between others.
 // 3) only creeps capable of doing the job should accept it
@@ -14,10 +15,12 @@
 // 10) should be possible to reassign creep to new task if it can efficiently swap jobs with another
 // 11) creeps should bid for work based on their proximity
 // 12) creeps should bid for work also based on their tools
-
+// TODO whenever the script is re-run the job array will be destroyed therefore must stor info in creep memory
 class Job {
-  constructor(description, assigned = false) {
+  constructor(description, type, target, assigned = false) {
     this.description = description;
+    this.type = type;
+    this.target = target;
     this.assigned = assigned;
   }
 }

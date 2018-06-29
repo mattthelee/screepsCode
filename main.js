@@ -7,28 +7,36 @@ var jobGenerator = require('job.generator');
 var jobAssigner = require('job.assigner');
 
 
-var harvesterNumber = 2;
+var harvesterNumber = 4;
 var upgraderNumber = 2;
 var builderNumber = 2;
-var harvesterDef = [WORK,WORK,CARRY,MOVE]
-var upgraderDef = [WORK,WORK,CARRY,MOVE]
-var builderDef = [WORK,WORK,CARRY,MOVE]
-
+var harvesterDef = [WORK,WORK,CARRY,MOVE];
+var upgraderDef = [WORK,WORK,CARRY,MOVE];
+var builderDef = [WORK,WORK,CARRY,MOVE];
+var jobArray = [];
 
 module.exports.loop = function () {
-    myRoom =  Game.rooms['W8N7']
-    jobArray = jobGenerator.run(myRoom);
-    jobAssigner.run(myRoom,jobArray)
+    myRoom =  Game.rooms['E57N34']
+    //console.log('pre-length' + jobArray.length);
+    jobArray = jobGenerator.run(myRoom,jobArray);
+    //console.log('mid-length' + jobArray.length);
+    jobArray = jobAssigner.run(myRoom,jobArray);
+    //  console.log('post-length' + jobArray.length);
+    for (job of jobArray){
+      //console.log(job.description);
+      //console.log(typeof(job.target));
 
-     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    console.log('Harvesters: ' + harvesters.length);
+    }
+
+    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
+    //console.log('Harvesters: ' + harvesters.length);
 
 
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    console.log('Upgraders: ' + upgraders.length);
+    //console.log('Upgraders: ' + upgraders.length);
 
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    console.log('Builder: ' + builders.length);
+    //console.log('Builder: ' + builders.length);
 
 
     if(harvesters.length < harvesterNumber) {
