@@ -67,5 +67,8 @@ module.exports.loop = function () {
         if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
         }
+        if(creep.memory.job == 'FEATURE SWITCH') {
+            screep.memory.job(creep);
+        }
     }
 }
