@@ -19,7 +19,7 @@ var jobGenerator = {
     }
 
     constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
-    for (constructionSite in constructionSites) {
+    for (constructionSite of constructionSites) {
       // Check to see if there is already a job for this constructionSite
       if (jobArray){
         var planned = jobArray.find(job => job.target === constructionSite);
@@ -30,6 +30,28 @@ var jobGenerator = {
       }
       jobArray.push(new Job("build :" + constructionSite,'build',constructionSite));
     }
+
+    var stores = room.find(FIND_STRUCTURES, {
+          filter: (structure) => {
+              return (structure.structureType == STRUCTURE_EXTENSION ||
+                  structure.structureType == STRUCTURE_SPAWN ||
+                  structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+          }
+      });
+    for (store of stores) {
+      if (jobArray){
+        var planned = jobArray.find(job => job.target === store);
+        var debug = jobArray.find(job => job.type === 'transfer');
+        console.log('debug ' + debug);
+        //TODO fix this
+        if (planned){
+          // If source planned skip to next
+          continue;
+        }
+      }
+      jobArray.push(new Job("transfer to :" + store,'transfer',store));
+    }
+
     // Check to see if there is already a job for this constructionSite
     if (jobArray){
       var planned = jobArray.find(job => job.target === room.controller.id);

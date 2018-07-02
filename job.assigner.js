@@ -12,22 +12,27 @@ var jobAssigner = {
   },
 
   run: function(room,jobArray) {
-    var assignedJobs = jobArray.filter( job => job.assigned != false);
-    var unassignedJobs = jobArray.filter( job => job.assigned === false);
+    var creeps = room.find(FIND_MY_CREEPS);
+    var employedCreeps = creeps.filter(creep => creep.memory.job != null);
+    activeJobs = []
+    for (employedCreep of employedCreeps) {
+      activeJobs.push(employedCreep.memory.job)
+    }
+    var assignedJobs = jobArray.filter( job => activeJobs.includes(job.description));
+    var unassignedJobs = jobArray.filter( job => !activeJobs.includes(job.description));
     console.log('assigned Jobs: ' + assignedJobs.length + ' unassigned: ' + unassignedJobs.length);
     for (job of unassignedJobs) {
-      //console.log(job.description);
-      //console.log('Assigned: ' + job.assigned);
-      var creeps = room.find(FIND_MY_CREEPS);
-      unemployedCreeps = creeps.filter(creep => creep.memory.job == null);
+      // If extract job ensure worker isnt full
+      if (job.type == 'extract'){
+        unemployedCreeps = creeps.filter(creep => creep.memory.job == null && creep.carry.energy != creep.carryCapacity);
+      } else {
+        unemployedCreeps = creeps.filter(creep => creep.memory.job == null);
+      }
       //console.log(creeps);
       //console.log(unemployedCreeps.length);
       if (unemployedCreeps.length > 0) {
         assignedJobs.push(this.assignJob(unemployedCreeps[0],job));
       }
-    }
-    for (debug of assignedJobs){
-      console.log(debug.assigned);
     }
     return assignedJobs;
   }

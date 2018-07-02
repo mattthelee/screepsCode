@@ -1,6 +1,8 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+var roleWorker = require('role.worker');
+
 
 var Job = require('job');
 var jobGenerator = require('job.generator');
@@ -10,9 +12,13 @@ var jobAssigner = require('job.assigner');
 var harvesterNumber = 4;
 var upgraderNumber = 2;
 var builderNumber = 2;
+var workerNumber = 2;
+
 var harvesterDef = [WORK,WORK,CARRY,MOVE];
 var upgraderDef = [WORK,WORK,CARRY,MOVE];
 var builderDef = [WORK,WORK,CARRY,MOVE];
+var workerDef = [WORK,WORK,CARRY,MOVE];
+
 var jobArray = [];
 
 module.exports.loop = function () {
@@ -20,13 +26,12 @@ module.exports.loop = function () {
     //console.log('pre-length' + jobArray.length);
     jobArray = jobGenerator.run(myRoom,jobArray);
     //console.log('mid-length' + jobArray.length);
-    jobArray = jobAssigner.run(myRoom,jobArray);
+    jobAssigner.run(myRoom,jobArray);
     //  console.log('post-length' + jobArray.length);
-    for (job of jobArray){
+    //for (job of jobArray){
       //console.log(job.description);
       //console.log(typeof(job.target));
-
-    }
+    //}
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     //console.log('Harvesters: ' + harvesters.length);
@@ -37,6 +42,8 @@ module.exports.loop = function () {
 
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     //console.log('Builder: ' + builders.length);
+    var workers = _.filter(Game.creeps, (creep) => creep.memory.role == 'worker');
+
 
 
     if(harvesters.length < harvesterNumber) {
@@ -54,6 +61,11 @@ module.exports.loop = function () {
         console.log('Spawning new builder: ' + newName);
         Game.spawns['Spawn1'].spawnCreep(builderDef, newName,
             {memory: {role: 'builder'}});
+    } else if (workers.length < workerNumber) {
+        var newName = 'Worker' + Game.time;
+        console.log('Spawning new worker: ' + newName);
+        Game.spawns['Spawn1'].spawnCreep(workerDef, newName,
+            {memory: {role: 'worker'}});
     }
 
     for(var name in Game.creeps) {
@@ -67,8 +79,8 @@ module.exports.loop = function () {
         if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
         }
-        if(creep.memory.job == 'FEATURE SWITCH') {
-            screep.memory.job(creep);
+        if(creep.memory.role == 'worker') {
+            roleWorker.run(creep,jobArray);
         }
     }
 }
