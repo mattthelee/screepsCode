@@ -7,28 +7,24 @@ var jobGenerator = {
     for (source in sources) {
       // Check to see if there is already a job for this source
       if (jobArray){
-        var planned = jobArray.find(job => job.target === source);
-        if (planned){
-          // If source planned skip to next
-          //console.log('planned source:' + planned);
-          continue;
+        var planned = jobArray.find(job => job.target.id == source.id);
+        if (!planned){
+          // If source not planned add it to array
+          jobArray.push(new Job("extract from source:" + source,'extract',source ));
         }
       }
-      var sourceJob = new Job("extract from source:" + source,'extract',source );
-      jobArray.push(sourceJob);
     }
 
     constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
     for (constructionSite of constructionSites) {
       // Check to see if there is already a job for this constructionSite
       if (jobArray){
-        var planned = jobArray.find(job => job.target === constructionSite);
-        if (planned){
-          // If source planned skip to next
-          continue;
+        var planned = jobArray.find(job => job.target.id == constructionSite.id);
+        if (!planned){
+          // If source not planned add it to array
+          jobArray.push(new Job("build :" + constructionSite,'build',constructionSite));
         }
       }
-      jobArray.push(new Job("build :" + constructionSite,'build',constructionSite));
     }
 
     var stores = room.find(FIND_STRUCTURES, {
@@ -38,27 +34,14 @@ var jobGenerator = {
                   structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
           }
       });
-      for (jobDebug of jobArray ){
-        //console.log('store: ' + store)
-        console.log('target: ' + jobDebug.target)
-      }
-      for (storedebug of stores){
-        console.log('store: ' + storedebug)
-
-      }
     for (store of stores) {
       if (jobArray){
-        var planned = jobArray.find(job => job.target == store);
-        var debug = jobArray.find(job => job.type == 'transfer');
-        //console.log('debug ' + debug.length);
-
-        //TODO fix this
-        if (planned){
-          // If source planned skip to next
-          continue;
+        var planned = jobArray.find(job => job.target.id == store.id);
+        if (!planned){
+          // If source not planned add it to array
+          jobArray.push(new Job("transfer to :" + store,'transfer',store));
         }
       }
-      jobArray.push(new Job("transfer to :" + store,'transfer',store));
     }
 
     // Check to see if there is already a job for this constructionSite
@@ -68,7 +51,10 @@ var jobGenerator = {
         jobArray.push(new Job("upgrade :" + room.controller.id,'upgrade',room.controller.id));
       }
     }
-
+    if (jobArray.length > 50) {
+      jobArray = []
+      console.log('Deleting job array due to oversizing')
+    }
     return jobArray
 
   }

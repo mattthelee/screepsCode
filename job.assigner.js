@@ -1,6 +1,5 @@
 var Job = require('job');
 
-
 var jobAssigner = {
 
   assignJob: function (creep,job) {
@@ -36,9 +35,6 @@ var jobAssigner = {
     }
     return assignedJobs;
   }
-
-
-
 }
 
 module.exports = jobAssigner;
