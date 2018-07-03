@@ -51,6 +51,7 @@ var jobGenerator = {
         var planned = jobArray.find(job => job.target == store);
         var debug = jobArray.find(job => job.type == 'transfer');
         //console.log('debug ' + debug.length);
+        console.log('This should not be empty: ' + planned )
 
         //TODO fix this
         if (planned){
