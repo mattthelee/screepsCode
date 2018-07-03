@@ -36,9 +36,6 @@ var jobAssigner = {
     }
     return assignedJobs;
   }
-
-
-
 }
 
 module.exports = jobAssigner;
