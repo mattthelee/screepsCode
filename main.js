@@ -33,6 +33,21 @@ module.exports.loop = function () {
       //console.log(typeof(job.target));
     //}
 
+    var tower = Game.getObjectById('5b3b17e4cf8ff9098540f5c0');
+   if(tower) {
+       var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+           filter: (structure) => structure.hits < structure.hitsMax
+       });
+       if(closestDamagedStructure) {
+           tower.repair(closestDamagedStructure);
+       }
+
+       var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+       if(closestHostile) {
+           //tower.attack(closestHostile);
+       }
+   }
+
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     //console.log('Harvesters: ' + harvesters.length);
 

@@ -38,11 +38,20 @@ var jobGenerator = {
                   structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
           }
       });
+      for (jobDebug of jobArray ){
+        //console.log('store: ' + store)
+        console.log('target: ' + jobDebug.target)
+      }
+      for (storedebug of stores){
+        console.log('store: ' + storedebug)
+
+      }
     for (store of stores) {
       if (jobArray){
-        var planned = jobArray.find(job => job.target === store);
-        var debug = jobArray.find(job => job.type === 'transfer');
-        console.log('debug ' + debug);
+        var planned = jobArray.find(job => job.target == store);
+        var debug = jobArray.find(job => job.type == 'transfer');
+        //console.log('debug ' + debug.length);
+
         //TODO fix this
         if (planned){
           // If source planned skip to next
