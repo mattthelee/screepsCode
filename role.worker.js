@@ -21,6 +21,7 @@ var roleWorker = {
             } else {
               // If creep is full finish job
               creep.say('Full');
+              delete jobArray[jobIndex];
               delete creep.memory.job;
             }
           break;
@@ -31,6 +32,7 @@ var roleWorker = {
             if(buildResponse == ERR_INVALID_TARGET){
               console.log(creep + ' cant build ' + target);
               creep.say('Built');
+              delete jobArray[jobIndex];
               delete creep.memory.job;
             }
             if(buildResponse == ERR_NOT_IN_RANGE) {
@@ -57,6 +59,7 @@ var roleWorker = {
             }  else {
               // If creep is empty finish job
               creep.say('Empty');
+              delete jobArray[jobIndex];
               delete creep.memory.job;
             }
           break;
@@ -71,6 +74,7 @@ var roleWorker = {
           } else {
             // If creep is empty finish job
             creep.say('Empty');
+            delete jobArray[jobIndex];
             delete creep.memory.job;
             }
           }

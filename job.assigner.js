@@ -23,7 +23,7 @@ var jobAssigner = {
     for (job of unassignedJobs) {
       // If extract job ensure worker isnt full
       if (job.type == 'extract'){
-        unemployedCreeps = creeps.filter(creep => creep.memory.job == null && creep.carry.energy != creep.carryCapacity);
+        unemployedCreeps = creeps.filter(creep => creep.memory.job == null && creep.carry.energy < creep.carryCapacity);
       } else {
         unemployedCreeps = creeps.filter(creep => creep.memory.job == null);
       }
