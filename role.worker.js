@@ -5,7 +5,7 @@ var roleWorker = {
       job = jobArray.filter(thisJob => thisJob.description == creep.job);
       jobIndex = jobArray.findIndex(thisJob => thisJob.description == creep.job)
       if (!job){
-        // If it doesn't have a job, nothing to do.
+        // If it doesn't have a job, nothing do.
         return jobArray
       }
       target = job.target;
