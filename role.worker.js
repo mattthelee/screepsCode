@@ -2,8 +2,9 @@ var roleWorker = {
 
     /** @param {Creep} creep **/
     run: function(creep,jobArray) {
-      job = jobArray.filter(thisJob => thisJob.description == creep.job);
-      jobIndex = jobArray.findIndex(thisJob => thisJob.description == creep.job)
+      jobIndex = jobArray.findIndex(thisJob => thisJob.description == creep.job);
+      job = [jobIndex];
+
       if (!job){
         // If it doesn't have a job, nothing do.
         return jobArray
