@@ -1,6 +1,6 @@
 // 1) I want to generate a list of jobs that need doing and order them by priority
 //    a) There should always be a job to extract resources if there is an open Resource
-//    b) transfer job should be created when a structure is not full
+//    b) transfer job should be created when a structure is not full 
 //    c) if no job available creeps should return to holding area near but not directly next to the source
 //    d) if a creep dies its job should be unassigned
 // 2) creeps should accept jobs from the list starting with highest priority

@@ -11,6 +11,8 @@ var jobGenerator = {
         if (!planned){
           // If source not planned add it to array
           jobArray.push(new Job("extract from source:" + source,'extract',source ));
+          jobArray.push(new Job("extract from source:" + source,'extract',source ));
+          jobArray.push(new Job("extract from source:" + source,'extract',source ));
         }
       }
     }

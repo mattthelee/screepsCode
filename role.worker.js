@@ -2,17 +2,19 @@ var roleWorker = {
 
     /** @param {Creep} creep **/
     run: function(creep,jobArray) {
-      jobIndex = jobArray.findIndex(thisJob => thisJob.description == creep.job);
-      job = [jobIndex];
-
+      jobIndex = jobArray.findIndex(thisJob => thisJob.description == creep.memory.job);
+      job = jobArray[jobIndex];
       if (!job){
         // If it doesn't have a job, nothing do.
+
         return jobArray
       }
+
       target = job.target;
 
       switch(job.type) {
         case 'extract':
+        
           //Do some harvesting
           if(creep.carry.energy < creep.carryCapacity) {
                 if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
