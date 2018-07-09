@@ -14,7 +14,7 @@ var roleWorker = {
 
       switch(job.type) {
         case 'extract':
-        
+
           //Do some harvesting
           if(creep.carry.energy < creep.carryCapacity) {
                 if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
@@ -23,7 +23,7 @@ var roleWorker = {
             } else {
               // If creep is full finish job
               creep.say('Full');
-              delete jobArray[jobIndex];
+              jobArray.splice(jobIndex,1);
               delete creep.memory.job;
             }
           break;
@@ -34,22 +34,17 @@ var roleWorker = {
             if(buildResponse == ERR_INVALID_TARGET){
               console.log(creep + ' cant build ' + target);
               creep.say('Built');
-              delete jobArray[jobIndex];
+              jobArray.splice(jobIndex,1);
               delete creep.memory.job;
             }
             if(buildResponse == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
           } else {
-            var withdrawSources = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION ||
-                                structure.structureType == STRUCTURE_SPAWN) && structure.energy == structure.energyCapacity;
-                    }
-            });
-            if(creep.withdraw(withdrawSources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(withdrawSources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
+            // If creep is empty finish job
+            creep.say('Empty b');
+            jobArray.splice(jobIndex,1);
+            delete creep.memory.job;
           }
           break;
         case 'upgrade':
@@ -60,8 +55,8 @@ var roleWorker = {
               }
             }  else {
               // If creep is empty finish job
-              creep.say('Empty');
-              delete jobArray[jobIndex];
+              creep.say('Empty u');
+              jobArray.splice(jobIndex,1);
               delete creep.memory.job;
             }
           break;
@@ -75,8 +70,8 @@ var roleWorker = {
 
           } else {
             // If creep is empty finish job
-            creep.say('Empty');
-            delete jobArray[jobIndex];
+            creep.say('Empty t');
+            jobArray.splice(jobIndex,1);
             delete creep.memory.job;
             }
           }

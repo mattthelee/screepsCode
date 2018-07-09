@@ -9,10 +9,10 @@ var jobGenerator = require('job.generator');
 var jobAssigner = require('job.assigner');
 
 
-var harvesterNumber = 4;
+var harvesterNumber = 0;
 var upgraderNumber = 0;
 var builderNumber = 0;
-var workerNumber = 8;
+var workerNumber = 15;
 
 var harvesterDef = [WORK,WORK,CARRY,MOVE];
 var upgraderDef = [WORK,WORK,CARRY,MOVE];

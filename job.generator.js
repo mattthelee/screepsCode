@@ -1,5 +1,5 @@
 var Job = require('job');
-
+var constructionEnabled = false;
 var jobGenerator = {
 
   run: function(room,jobArray = []) {
@@ -20,7 +20,7 @@ var jobGenerator = {
     constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
     for (constructionSite of constructionSites) {
       // Check to see if there is already a job for this constructionSite
-      if (jobArray){
+      if (jobArray && constructionEnabled){
         var planned = jobArray.find(job => job.target.id == constructionSite.id);
         if (!planned){
           // If source not planned add it to array
@@ -36,6 +36,7 @@ var jobGenerator = {
                   structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
           }
       });
+
     for (store of stores) {
       if (jobArray){
         var planned = jobArray.find(job => job.target.id == store.id);
